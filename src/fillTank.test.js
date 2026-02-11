@@ -26,8 +26,10 @@ describe('fillTank', () => {
       },
     };
 
+    const returnValue = fillTank(customer, 20);
+    expect(returnValue).toBeUndefined();
+
     expect(customer).toEqual(resultCustomer);
-    expect(fillTank(customer, 20)).toBeUndefined();
   });
 
   it('only free volume is filled if requested amount > tank capacity', () => {
