@@ -27,6 +27,7 @@ describe('fillTank', () => {
     };
 
     expect(customer).toEqual(resultCustomer);
+    expect(fillTank(customer, 20)).toBeUndefined();
   });
 
   it('only free volume is filled if requested amount > tank capacity', () => {
@@ -108,5 +109,20 @@ describe('fillTank', () => {
 
     expect(customer.vehicle.fuelRemains).toBeCloseTo(49.944, 3);
     expect(customer.money).toBeCloseTo(994.9, 2);
+  });
+
+  it('should round round the total price to the nearest hundredth', () => {
+    const customer = {
+      money: 1000, // customer account balance
+      vehicle: {
+        maxTankCapacity: 50, // fuel tank volume
+        fuelRemains: 10.044, // Remaining fuel in the tank
+      },
+    };
+
+    fillTank(customer, 1.23456, 40);
+
+    expect(customer.vehicle.fuelRemains).toBeCloseTo(49.944, 3);
+    expect(customer.money).toBeCloseTo(950.75, 1);
   });
 });
